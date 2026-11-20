@@ -87,6 +87,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 </style>
 <style id="kadence_blocks_palette_css">:root .has-palette1-color{color:#2b7a78}:root .has-palette1-background-color{background-color:#2b7a78}:root .has-palette2-color{color:#1d5f5d}:root .has-palette2-background-color{background-color:#1d5f5d}:root .has-palette3-color{color:#0f2a3d}:root .has-palette3-background-color{background-color:#0f2a3d}:root .has-palette4-color{color:#22384a}:root .has-palette4-background-color{background-color:#22384a}:root .has-palette5-color{color:#4d6170}:root .has-palette5-background-color{background-color:#4d6170}:root .has-palette6-color{color:#5f717d}:root .has-palette6-background-color{background-color:#5f717d}:root .has-palette7-color{color:#eef3f4}:root .has-palette7-background-color{background-color:#eef3f4}:root .has-palette8-color{color:#f7fafa}:root .has-palette8-background-color{background-color:#f7fafa}:root .has-palette9-color{color:#ffffff}:root .has-palette9-background-color{background-color:#ffffff}:root .has-palette10-color{color:#a1676d}:root .has-palette10-background-color{background-color:#a1676d}:root .has-palette11-color{color:#13612e}:root .has-palette11-background-color{background-color:#13612e}:root .has-palette12-color{color:#1159af}:root .has-palette12-background-color{background-color:#1159af}:root .has-palette13-color{color:#b82105}:root .has-palette13-background-color{background-color:#b82105}:root .has-palette14-color{color:#f7630c}:root .has-palette14-background-color{background-color:#f7630c}:root .has-palette15-color{color:#f5a524}:root .has-palette15-background-color{background-color:#f5a524}</style><meta name="generator" content="WordPress 7.1.5" />
 <link rel="canonical" href="index.html" />
+<style>.kb-form .required,.kadence-blocks-form-field .required{color:#b42318}</style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%232b7a78%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2241%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2224%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EF%26amp%3BA%3C%2Ftext%3E%3C%2Fsvg%3E">
 <link rel="preload" href="../wp-content/fonts/fraunces/6NUh8FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0K7iN7hzFUPJH58nib1603gg7S2nfgRYIctxuTCf7T.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../wp-content/fonts/inter/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin><link rel='stylesheet' id='kadence-fonts-gfonts-css' href='../wp-content/fonts/c733e27672ff7e006c04c30c68212b3f.css' media='all' />
 <style id="core-block-supports-inline-css">
@@ -310,6 +311,11 @@ var kadence_blocks_form_params = {"ajaxurl":"/wp-admin/admin-ajax.php","error_me
 document.addEventListener('submit', function (e) {
   var form = e.target.closest('.kb-form, form');
   if (!form) return;
+  // Empty required fields: let Kadence show its normal "is required" messages.
+  var missing = [].some.call(form.querySelectorAll('[data-required="yes"], [required]'), function (el) {
+    return !String(el.value || '').trim();
+  });
+  if (missing) return;
   e.preventDefault(); e.stopImmediatePropagation();
   var note = form.parentNode.querySelector('.demo-form-note');
   if (!note) {
